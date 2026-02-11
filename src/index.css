@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-slate-800 antialiased cursor-default;
+    background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    /* Fallback */
+    background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
+    background: radial-gradient(circle at top left, #ffdde1, #ee9ca7, #a7bfe8);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Cute Selection */
+  ::selection {
+    @apply bg-pink-300 text-white;
+  }
+}
+
+/* Custom Cursor */
+body {
+  cursor: url('data:image/svg+xml;utf8,<svg id="svg" xmlns="http://www.w3.org/2000/svg" viewport="0 0 32 32" style="font-size: 24px;"><text y="20">✨</text></svg>'), auto;
+}
+
+button,
+a,
+input,
+textarea {
+  cursor: url('data:image/svg+xml;utf8,<svg id="svg" xmlns="http://www.w3.org/2000/svg" viewport="0 0 32 32" style="font-size: 24px;"><text y="20">👆</text></svg>'), pointer;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/20 backdrop-blur-xl border border-white/40 shadow-2xl rounded-[2.5rem];
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 rounded-full bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 text-white font-bold shadow-lg shadow-purple-500/30 tracking-wide transform transition-all duration-300 ease-out hover:scale-110 hover:shadow-xl hover:shadow-purple-500/50 hover:-translate-y-1 active:scale-95 relative overflow-hidden;
+    background-size: 200% auto;
+    animation: gradientMove 3s ease infinite;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .btn-primary:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Floating Blobs for background */
+.blob {
+  position: absolute;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.6;
+  animation: blobFloat 20s infinite alternate;
+}
+
+@keyframes blobFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(20px, -20px) scale(1.1);
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+/* Custom Floating Hearts Animation */
+.floating-heart {
+  position: absolute;
+  color: #fff;
+  opacity: 0;
+  animation: float 15s infinite linear;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.7;
+  }
+
+  90% {
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: translateY(-10vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Confetti Container */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
